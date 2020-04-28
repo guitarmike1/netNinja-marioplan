@@ -8,18 +8,43 @@ import SignUp from './components/auth/SignUp'
 import CreateProject from './components/projects/CreateProject'
 
 class App extends Component {
+
+  //new code  ************************************
+
+  state = {
+    videos: []
+  }
+componentDidMount() {
+  this.getVideos();
+}
+
+getVideos = e => {
+  fetch('http://localhost:4000/videos')
+  .then(response => response.json())
+  .then(({ data }) => {
+    console.log(data)
+  })
+  .catch(err => console.log(err))
+}
+
+renderVideos = ({camera_name}) => <div key = {camera_name}></div>
+
+  //new code  ***********************************************
   render() {
+    const { videos } = this.state;
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar />
+          { videos.map(this.renderVideos)}
+          <h4>This is a test</h4>
+          {/* <Navbar />
           <Switch>
             <Route exact path='/'component={Dashboard} />
             <Route path='/project/:id' component={ProjectDetails} />
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
             <Route path='/create' component={CreateProject} />
-          </Switch>
+          </Switch> */}
         </div>
       </BrowserRouter>
     );

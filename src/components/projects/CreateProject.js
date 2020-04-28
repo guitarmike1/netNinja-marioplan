@@ -45,4 +45,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+//note the connect function requires 2 parms and since we don't have a map StateToProps
+// we set first parm to null
 export default connect(null, mapDispatchToProps)(CreateProject)
