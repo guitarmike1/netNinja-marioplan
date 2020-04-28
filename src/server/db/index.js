@@ -7,6 +7,7 @@
 import config from '../config/index';
 import * as mysql from 'mysql';
 import Mike from './mike';
+import server from '../server'
 
 
 export const Connection = mysql.createConnection(config.mysql);
@@ -16,7 +17,7 @@ Connection.connect(err =>  {
 
 });
 
-console.log(Connection)
+// console.log(Connection)
 export default {
     Mike
 }
