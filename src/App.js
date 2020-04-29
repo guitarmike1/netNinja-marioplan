@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+// import fetch from 'react-fetch';
 import Navbar from './components/layout/Navbar'
 import Dashboard from './components/dashboard/Dashboard'
 import ProjectDetails from './components/projects/ProjectDetails'
@@ -15,36 +16,39 @@ class App extends Component {
     videos: []
   }
 componentDidMount() {
+  console.log("componentDidMount getVideos")
   this.getVideos();
 }
 
-getVideos = e => {
-  fetch('http://localhost:4000/videos')
-  .then(response => response.json())
-  .then(({ data }) => {
-    console.log(data)
-  })
-  .catch(err => console.log(err))
+
+async getVideos() {
+  // GET request using fetch with async/await
+  const response = await fetch('http://localhost:4001/api/mike');
+  const cameraName = await response.json();
+  this.setState({ videos: cameraName})
+  console.log('camera Names = ',cameraName)
 }
 
 renderVideos = ({camera_name}) => <div key = {camera_name}></div>
 
   //new code  ***********************************************
   render() {
+    console.log("app.js render")
     const { videos } = this.state;
+    console.log('meb test')
     return (
       <BrowserRouter>
         <div className="App">
           { videos.map(this.renderVideos)}
           <h4>This is a test</h4>
-          {/* <Navbar />
+          <Navbar />
           <Switch>
             <Route exact path='/'component={Dashboard} />
             <Route path='/project/:id' component={ProjectDetails} />
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
             <Route path='/create' component={CreateProject} />
-          </Switch> */}
+          </Switch>
         </div>
       </BrowserRouter>
     );

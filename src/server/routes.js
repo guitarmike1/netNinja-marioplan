@@ -1,8 +1,11 @@
 import * as express from 'express';
 import DB from './db';
+import cors from 'cors'
 
 
 const router = express.Router();
+
+// router.use(cors());
 
 router.get('/api/hello', (req, res, next) => {
     res.json('World');
